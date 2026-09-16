@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>QuizShare</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="#home">QuizShare</a>
+  <nav>
+    <button class="navbtn" data-page="home">Home</button>
+    <button class="navbtn" data-page="library">Explore</button>
+    <button class="navbtn auth-only" data-page="create">Create</button>
+    <button class="navbtn" id="authBtn">Sign in</button>
+  </nav>
+</header>
+
+<main id="app">
+  <section id="home" class="page active">
+    <div class="hero">
+      <span class="pill">Play • Create • Share</span>
+      <h1>Quizzes for everyone.</h1>
+      <p>Play quizzes without an account. Sign in when you want to create, save and share your own quizzes.</p>
+      <div class="actions">
+        <button class="primary" data-page="library">Find a quiz</button>
+        <button class="secondary auth-only" data-page="create">Create a quiz</button>
+        <label class="secondary file-label">Import .qz<input id="homeImport" type="file" accept=".qz,application/json"></label>
+      </div>
+    </div>
+    <div class="cards">
+      <article><b>🎮 Play without signing in</b><span>Anyone can import or play a quiz.</span></article>
+      <article><b>🔐 Create with an account</b><span>Save quizzes to your profile and share them.</span></article>
+      <article><b>🏆 Optional certificates</b><span>Turn a quiz into a test and issue a certificate to people who pass.</span></article>
+    </div>
+  </section>
+
+  <section id="library" class="page">
+    <div class="section-head"><div><span class="eyebrow">Community</span><h2>Explore quizzes</h2></div>
+      <label class="secondary file-label">Import .qz<input id="libraryImport" type="file" accept=".qz,application/json"></label>
+    </div>
+    <input id="search" class="search" placeholder="Search public quizzes...">
+    <div id="quizList" class="quiz-grid"></div>
+  </section>
+
+  <section id="create" class="page">
+    <div class="section-head"><div><span class="eyebrow">Creator</span><h2>Create a quiz</h2></div></div>
+    <form id="quizForm" class="panel">
+      <input id="quizTitle" required placeholder="Quiz title">
+      <textarea id="quizDescription" placeholder="Description"></textarea>
+      <div class="settings">
+        <label class="switchrow"><input id="isPublic" type="checkbox" checked><span>Share this quiz publicly</span></label>
+        <label class="switchrow"><input id="isTest" type="checkbox"><span>This is a test</span></label>
+        <label class="switchrow"><input id="certificateEnabled" type="checkbox"><span>Give a certificate to people who pass</span></label>
+        <label>Pass percentage <input id="passPercentage" type="number" min="1" max="100" value="70"></label>
+      </div>
+      <div id="questions"></div>
+      <button type="button" class="secondary" id="addQuestion">+ Add question</button>
+      <button class="primary full" type="submit">Save & share quiz</button>
+    </form>
+  </section>
+
+  <section id="play" class="page">
+    <div id="player"></div>
+  </section>
+
+  <section id="auth" class="page">
+    <div class="authbox">
+      <span class="eyebrow">Account</span><h2 id="authTitle">Sign in</h2>
+      <form id="authForm">
+        <input id="email" type="email" required placeholder="Email">
+        <input id="password" type="password" required minlength="6" placeholder="Password">
+        <button class="primary full" type="submit">Continue</button>
+      </form>
+      <button class="linkbtn" id="toggleAuth">Need an account? Sign up</button>
+      <p class="muted">You don't need an account to play quizzes.</p>
+      <p id="authMessage" class="message"></p>
+    </div>
+  </section>
+</main>
+<div id="toast" class="toast"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
